@@ -1,0 +1,44 @@
+.system{
+  padding: 0rpx 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.brand{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 250rpx;
+  font-size: 100rpx;
+  font-family: DINCondensed-Bold;
+  color: #10AEFF;
+}
+
+.brand image{
+  width: 100rpx;
+  height: 100rpx;
+  margin-right: 20rpx;
+}
+
+.brand text{
+  line-height: 1em;
+}
+
+.desc-list{
+  margin-top: -1px;
+  padding: 0 20rpx;
+  line-height: 120rpx;
+  border-top: 1px solid #EEEEEE;
+  border-bottom: 1px solid #EEEEEE;
+}
+
+.label{
+  margin-right: 20rpx;
+  font-size: 30rpx;
+  color: #353535;
+}
+
+.desc{
+  font-size: 24rpx;
+   color: #888888;
+}

@@ -1,0 +1,12 @@
+<view class="system">
+  <view class="brand">
+    <image src="/asset/image/mobile.svg"></image>
+    <text>{{systemInfo.brand}}</text>
+  </view>
+  <view class="desc-list" wx:for='{{systemInfoKey}}' wx:key='{{index}}'>
+    <text class="label">{{item.desc}}:</text>
+    <text class="desc">{{systemInfo[item.key]}}</text>
+  </view>
+</view>
+
+<view bindtap='toCitychoose'>城市选择</view>
