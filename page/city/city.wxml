@@ -14,7 +14,7 @@
     <view class="cities">
       <view class="item active" catchtap='chooseCity'>
         <image class="icon" src="/asset/image/location.svg"></image>
-        <view>定位</view>
+        <view>{{location || '定位'}}</view>
       </view>
       <view class="item" hover-class="active" catchtap='chooseCity' wx:for="{{hotCities}}" wx:key="{{index}}" data-name="{{item.name}}">
         {{item.name}}

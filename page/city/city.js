@@ -10,15 +10,17 @@ Page({
     searchText: null,
     cities: null,
     filterCity: null,
-    hotCities: []
+    hotCities: [],
+    location: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getHotCity();
+    this.setHotCity();
     this.formatCity();
+    this.getLocation();
   },
 
   /**
@@ -29,9 +31,31 @@ Page({
   },
 
   /**
+   * 定位当前城市
+   */
+  getLocation(){
+    const that = this;
+    wx.getLocation({
+      type: 'wgs84',
+      success(res) {
+        wx.request({
+          url: `https://restapi.amap.com/v3/geocode/regeo?location=121.52609,31.25956&key=0a6f7e4adc55c410a9591b79d8b4fdb2`, // 仅为示例，并非真实的接口地址
+          success(res) {
+            const info = res.data.regeocode.addressComponent;
+            that.setData({
+              location: info.district
+            });
+            console.log(res.data)
+          }
+        })
+      }
+    })
+  },
+
+  /**
    * 获取热门城市
    */
-  getHotCity(){
+  setHotCity(){
     this.setData({
       hotCities: [
         { name: '北京' },
@@ -97,8 +121,9 @@ Page({
         return item;
       }
     })
+
     const includesArray = cityInfo.filter(item => {
-      if (item.name.includes(value)) {
+      if (item.name.includes(value) && !startArray.includes(item)) {
         return item;
       }
     })
