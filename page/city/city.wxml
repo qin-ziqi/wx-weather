@@ -1,45 +1,45 @@
+<nav-component></nav-component>
+
 <view class="city">
-  <view class="search">
-    <view class="wrapper">
-      <view class="inner">
-        <image src='/asset/image/search.svg'></image>
-        <input value='{{searchText}}' placeholder='请输入城市名' maxlength='20' confirm-type='搜索' bindinput='cityFilter'></input>
-      </view>
-      <text class="clear" bindtap="clear">清空</text>
-    </view>
-  </view>
-
-  <view class="hot">
-    <view class="title">热门城市</view>
-    <view class="cities">
-      <view class="item active" catchtap='chooseCity'>
-        <image class="icon" src="/asset/image/location.svg"></image>
-        <view>{{location || '定位'}}</view>
-      </view>
-      <view class="item" hover-class="active" catchtap='chooseCity' wx:for="{{hotCities}}" wx:key="{{index}}" data-name="{{item.name}}">
-        {{item.name}}
-      </view>
-     </view>
-  </view>
-
-  <view class="bottom">
-    <view wx:if="{{!filterCity}}" wx:key="{{index}}" wx:for="{{cities}}">
-      <view class="key">{{index}}</view>
-      <view class="values">
-        <view class="value" wx:key="{{index}}" wx:for="{{item}}" data-name="{{item.name}}" hover-class='hover' catchtap='chooseCity'>
-          {{item.name}}
+    <view class="search">
+        <view class="wrapper">
+            <view class="inner">
+                <image src='/asset/image/search.svg'></image>
+                <input value='{{searchText}}' placeholder='请输入城市名' maxlength='20' confirm-type='搜索' bindinput='cityFilter'></input>
+            </view>
+            <text class="clear" bindtap="clear">清空</text>
         </view>
-      </view>
     </view>
-    <view wx:if="{{filterCity.length > 0}}" >
-      <view class="values">
-        <view class="value" wx:for="{{filterCity}}" wx:key="{{index}}"  data-name="{{item.name}}" hover-class='hover' catchtap='chooseCity'>
-          {{item.name}}
+
+    <view class="hot">
+        <view class="title">热门城市</view>
+        <view class="cities">
+            <view class="item active" catchtap='chooseCity'>
+                <image class="icon" src="/asset/image/location.svg"></image>
+                <view>{{location}}</view>
+            </view>
+            <view class="item" hover-class="active" catchtap='chooseCity' wx:for="{{hotCities}}" wx:key="{{index}}" data-name="{{item.name}}">
+                {{item.name}}
+            </view>
         </view>
-      </view>
     </view>
-  </view>
-  <view class="empty" wx:if="{{filterCity.length === 0 || !cities}}">暂无可选城市</view>
+
+    <view class="bottom">
+        <view wx:if="{{!filterCity}}" wx:key="{{index}}" wx:for="{{cities}}">
+            <view class="key">{{index}}</view>
+            <view class="values">
+                <view class="value" wx:key="{{index}}" wx:for="{{item}}" data-name="{{item.name}}" hover-class='hover' catchtap='chooseCity'>
+                    {{item.name}}
+                </view>
+            </view>
+        </view>
+        <view wx:if="{{filterCity.length > 0}}">
+            <view class="values">
+                <view class="value" wx:for="{{filterCity}}" wx:key="{{index}}" data-name="{{item.name}}" hover-class='hover' catchtap='chooseCity'>
+                    {{item.name}}
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="empty" wx:if="{{filterCity.length === 0 || !cities}}">暂无可选城市</view>
 </view>
-
-<view bindtap='toSystem'>系统信息</view>

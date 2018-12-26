@@ -1,8 +1,8 @@
 {
   "pages": [
+    "page/about/about",
     "page/city/city",
-    "page/system/system",
-    "page/about/about"
+    "page/system/system"
   ],
   "window": {
     "backgroundTextStyle": "light",

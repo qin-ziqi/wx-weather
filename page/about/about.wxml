@@ -1,2 +1,54 @@
-<!--page/about/about.wxml-->
-<text>page/about/about.wxml</text>
+<nav-component></nav-component>
+
+<view class="about">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <block wx:for="{{imgUrls}}" wx:key="{{index}}">
+            <swiper-item>
+                <view class="swiper-item">
+
+                    <image src="{{item.src}}"></image>
+                    <!-- <text>{{item.name}}</text> -->
+                </view>
+            </swiper-item>
+        </block>
+    </swiper>
+
+    <view class="info">
+        <view class="title">开发者信息</view>
+        <view class="list" wx:for="{{developerInfo}}" wx:key="{{index}}">
+            <view class="list-icon">
+                <image src="{{item.img}}"></image>
+            </view>
+            <view class="list-item">
+                <view>{{item.type}}</view>
+                <view>{{item.info}}</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="info">
+        <view class="title">代码已开源</view>
+        <view class="list">
+            <view class="list-icon">
+                <image src="/asset/image/github.svg"></image>
+            </view>
+            <view class="list-item">
+                <view>开源信息</view>
+                <view>https://github.com/qin-ziqi/wx-weather</view>
+            </view>
+        </view>
+    </view>
+
+    <view class="info">
+        <view class="title">特别鸣谢</view>
+        <view class="list">
+            <view class="list-icon">
+                <image src="/asset/image/cloud.svg"></image>
+            </view>
+            <view class="list-item">
+                <view>气象数据来源</view>
+                <view>和风天气</view>
+            </view>
+        </view>
+    </view>
+</view>

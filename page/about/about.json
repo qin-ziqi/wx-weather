@@ -1,1 +1,6 @@
-{}
+{
+	"navigationBarTitleText": "关于",
+	"usingComponents": {
+		"nav-component": "/component/nav-component/nav-component"
+	}
+}

@@ -1,0 +1,9 @@
+<view class="nav" catchtap='showNaver' wx:if="{{!isShow}}">
+    <image src="/asset/image/nav.svg"></image>
+</view>
+
+<view class="btn-group" wx:if="{{isShow}}">
+    <button type="primary" bindtap='toSystem'>系统信息</button>
+    <button type="primary" bindtap='toCitychoose'>城市选择</button>
+    <button type="primary" bindtap="toAbout">关于</button>
+</view>

@@ -1,1 +1,68 @@
-/* page/about/about.wxss */
+.about {
+    font-size: 30rpx;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+swiper {
+    height: 300rpx;
+    background: #fff;
+}
+
+.swiper-item {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    font-size: 32rpx;
+    color: #333;
+}
+
+.swiper-item image {
+    /* margin: 20rpx; */
+    width: 400rpx;
+    height: 250rpx;
+}
+
+.info {
+    padding: 40rpx;
+    margin-top: 20rpx;
+    background: #fff;
+}
+
+.title {
+    font-size: 32rpx;
+    color: #10aeff;
+}
+
+.info {
+    line-height: 2em;
+}
+
+.list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10rpx;
+}
+
+.list-icon {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 2em;
+}
+
+.list-icon image {
+    width: 32rpx;
+    height: 32rpx;
+    margin-right: 20rpx;
+}
+
+.info:last-child {
+    margin-bottom: 20rpx;
+}
