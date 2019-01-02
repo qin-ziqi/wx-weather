@@ -1,0 +1,42 @@
+<view class="container">
+    <view class="bcg" wx:if='{{!bcgUrl}}' style="background: {{bcgColor}}"></view>
+    <image class='bcg' wx:if='{{bcgUrl}}' src='{{bcgUrl}}' mode='aspectFill'></image>
+
+    <view class="search">
+        <view class="wrapper">
+            <image src="/asset/image/search-white.svg"></image>
+            <input value='{{searchText}}' placeholder='请输入城市名，快速查询天气' placeholder-class="placeholder-class" confirm-type='search' maxlength='20' bindconfirm="confirmSearch"></input>
+        </view>
+    </view>
+
+    <view class="content">
+        <view class="user">
+            <open-data class="user-image" type="userAvatarUrl"></open-data>
+            <open-data class="user-name" type="userNickName"></open-data>
+        </view>
+
+        <view class="location">
+            <view class="city" catchtap='goChooseCity'>
+                <image class="icon-style" src="/asset/image/location.svg"></image>
+                <view class="city-name">{{city}}</view>
+            </view>
+            <view class="time">
+                {{updateTime}} 更新
+            </view>
+        </view>
+
+        <view class="message">工作不要太累，祝你开心快乐每一天！</view>
+
+        <view class="weather">
+            <view class="weather-temperature">
+                {{info.now.tmp || 0}}
+                <text>℃</text>
+            </view>
+            <view class="weather-info">
+                <text class="weather-type">{{info.now.cond_txt || '暂无数据'}}</text>
+                <text class="weather-desc">能见度 {{info.now.vis || 0}}</text>
+            </view>
+        </view>
+    </view>
+</view>
+<nav-component></nav-component>

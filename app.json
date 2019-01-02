@@ -1,13 +1,14 @@
 {
-  "pages": [
-    "page/about/about",
-    "page/city/city",
-    "page/system/system"
-  ],
-  "window": {
-    "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
-  }
+	"pages": [
+		"page/index/index",
+		"page/about/about",
+		"page/city/city",
+		"page/system/system"
+	],
+	"window": {
+		"backgroundTextStyle": "light",
+		"navigationBarBackgroundColor": "#fff",
+		"navigationBarTitleText": "WeChat",
+		"navigationBarTextStyle": "black"
+	}
 }

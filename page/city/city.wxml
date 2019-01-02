@@ -18,8 +18,8 @@
                 <image class="icon" src="/asset/image/location.svg"></image>
                 <view>{{location}}</view>
             </view>
-            <view class="item" hover-class="active" catchtap='chooseCity' wx:for="{{hotCities}}" wx:key="{{index}}" data-name="{{item.name}}">
-                {{item.name}}
+            <view class="item" hover-class="active" catchtap='chooseCity' wx:for="{{hotCities}}" wx:key="{{index}}" data-name="{{item.location}}">
+                {{item.location}}
             </view>
         </view>
     </view>

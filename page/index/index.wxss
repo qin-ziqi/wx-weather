@@ -1,0 +1,137 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    font-size: 30rpx;
+    color: #fff;
+}
+
+.bcg {
+    position: fixed;
+    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+}
+
+.search {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 90rpx;
+}
+
+.search .wrapper {
+    display: flex;
+    align-items: center;
+    font-size: 28rpx;
+    height: 60rpx;
+    margin: 15rpx 50rpx;
+    padding: 0 15rpx;
+    box-sizing: border-box;
+    border: none;
+    border-bottom: 1rpx solid #fff;
+}
+
+.search image {
+    width: 28rpx;
+    height: 28rpx;
+    margin-right: 20rpx;
+}
+
+.search input {
+    flex: 1;
+}
+
+.placeholder-class {
+    color: #fff;
+}
+
+.content {
+    margin-top: 120rpx;
+    padding: 0 50rpx;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+}
+
+.user-image {
+    overflow: hidden;
+    width: 60rpx;
+    height: 60rpx;
+    border-radius: 50%;
+}
+
+.user-name {
+    padding: 0 20rpx;
+    font-size: 30rpx;
+}
+
+.location {
+    padding: 10rpx 0 50rpx;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.city {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50rpx;
+}
+
+.city-name {
+    margin: 0 20rpx;
+}
+
+.icon-style {
+    width: 30rpx;
+    height: 30rpx;
+}
+
+.time {
+    display: block;
+    text-align: right;
+    font-size: 24rpx;
+}
+
+.message {
+    font-size: 24rpx;
+}
+
+.weather {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-temperature {
+    margin: 200rpx 0;
+    font-size: 200rpx;
+    font-weight: 300;
+}
+
+.weather-temperature text {
+    margin-left: -40rpx;
+    font-size: 50rpx;
+}
+
+.weather-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.weather-desc {
+    font-size: 24rpx;
+    margin: 20rpx;
+    padding: 10rpx 20rpx;
+    border-radius: 20rpx;
+    background: rgba(240, 240, 240, 0.2);
+}

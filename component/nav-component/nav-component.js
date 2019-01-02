@@ -22,11 +22,20 @@ Component({
          * 显示导航菜单
          */
 		showNaver() {
-			console.log('点击');
             this.setData({
                 isShow: true
             })
         },
+
+		/**
+		 * 跳转首页
+		 */
+		toIndex() {
+			wx.navigateTo({
+				url: '/page/index/index',
+			})
+		},
+		
         /**
          * 跳转城市选择页
          */

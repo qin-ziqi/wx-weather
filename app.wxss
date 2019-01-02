@@ -1,3 +1,4 @@
 Page {
   background: #f4f6f9;
+  font-family: "PingHei", "Helvetica Neue", "Helvetica", "Arial", "Verdana", "sans-serif";
 }
