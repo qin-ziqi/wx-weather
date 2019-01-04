@@ -36,7 +36,7 @@ Page({
      */
     getHotCity() {
         wx.request({
-            url: `${GlobalData.requestUrl.hotCity}`,
+            url: GlobalData.hefengApi.hotCity,
             data: {
                 group: 'cn',
                 key: GlobalData.hefengKey

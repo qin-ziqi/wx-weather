@@ -38,5 +38,47 @@
             </view>
         </view>
     </view>
+
+    <view wx:if="{{nowInfo}}">
+        <view class="title-style">实况天气</view>
+        <view class="details">
+            <view class="detail" wx:for="{{nowInfo}}" wx:key="{{index}}">
+                <text>{{item.name}}</text>
+                <text>{{item.value}}</text>
+            </view>
+        </view>
+    </view>
+
+    <view wx:if="{{hourlyWeather}}">
+        <view class="title-style">24小时预报</view>
+        <view class="hourly-content">
+            <view class="hourly-item" wx:for="{{hourlyWeather}}" wx:key="{{index}}">
+                <view class="details">
+                    <view class="detail" wx:for="{{item.details}}" wx:key="{{index}}">
+                        <text>{{item.name}}</text>
+                        <text>{{item.value}}</text>
+                    </view>
+                </view>
+                <view class="hourly-time">{{item.time}}</view>
+            </view>
+        </view>
+    </view>
+
+    <view wx:if="{{dailyWeather}}">
+        <view class="title-style">7天预报</view>
+        <view class="scroll-content">
+            <view class="daily-item " wx:for="{{dailyWeather}}" wx:key="{{index}}">
+                <view class="scroll-item">
+                    <text>{{item.date}}</text>
+                    <text>{{item.tmp_min}}~{{item.tmp_max}}℃</text>
+                    <view>
+                        <text>{{item.cond_txt_d}}</text>
+                        <image mode="widthFix" src='{{weatherIconUrl}}{{item.cond_code_d}}.png'></image>
+                    </view>
+                    <text>{{item.wind_dir}}~{{item.wind_sc}}级</text>
+                </view>
+            </view>
+        </view>
+    </view>
 </view>
 <nav-component></nav-component>

@@ -11,13 +11,17 @@ App({
         systemInfo: null,
         location: null,
         hefengKey: '796ec8fe17934228b7a008b85841a6d3',
-        gaodeKey: '0a6f7e4adc55c410a9591b79d8b4fdb2',
+		gaodeKey: 'ce57ce5cc135a591d6e6e9eb6394c93c',
         weatherIconUrl: 'https://cdn.heweather.com/cond_icon/',
-        requestUrl: {
+        hefengApi: {
+			hotCity: 'https://search.heweather.net/top',
 			weather: 'https://free-api.heweather.net/s6/weather/now',
-			hourly: 'https://free-api.heweather.net/s6/weather/forecast',
-            hotCity: 'https://search.heweather.net/top'
+			hourly: 'https://free-api.heweather.net/s6/weather/hourly',
+			daily: 'https://free-api.heweather.net/s6/weather/forecast'
         },
+		gaodeApi: {
+			location: 'https://restapi.amap.com/v3/geocode/regeo'
+		}
     }
 
 })
