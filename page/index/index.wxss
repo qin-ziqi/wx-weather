@@ -90,7 +90,6 @@
 
 .icon-style {
     width: 30rpx;
-    height: 30rpx;
 }
 
 .time {
@@ -177,8 +176,7 @@
 }
 
 .hourly-content {
-    display: flex;
-    overflow-x: scroll;
+	height: 380rpx;
     background: rgba(0, 0, 0, 0.4);
 }
 
@@ -212,7 +210,6 @@
 
 .daily-item {
     width: 33.33vw;
-    height: 200rpx;
     flex-shrink: 0;
 }
 
@@ -224,7 +221,7 @@
     background: rgba(107, 102, 102, 0.4);
     margin: 25rpx;
     padding: 10rpx;
-    line-height: 1.5em;
+    line-height: 2em;
 }
 
 .scroll-item  view {
@@ -236,4 +233,27 @@
 .scroll-item  image {
     width: 40rpx;
     margin-left: 10rpx;
+}
+
+.nav-content {
+    position: fixed;
+    right: 100rpx;
+    bottom: 100rpx;
+}
+
+.nav-item {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50rpx;
+    height: 50rpx;
+    background: #fff;
+    border-radius: 50%;
+}
+
+.nav-item image {
+    width: 40rpx;
 }

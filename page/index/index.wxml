@@ -17,8 +17,9 @@
 
         <view class="location">
             <view class="city" catchtap='goChooseCity'>
-                <image class="icon-style" src="/asset/image/location.svg"></image>
+                <image class="icon-style" mode='widthFix' src="/asset/image/location.svg"></image>
                 <view class="city-name">{{city}}</view>
+                <image class="icon-style" mode='widthFix' style='width: 20rpx;margin-left: -10rpx;' src="/asset/image/down.svg"></image>
             </view>
             <view class="time">
                 {{updateTime}} 更新
@@ -29,20 +30,20 @@
 
         <view class="weather">
             <view class="weather-temperature">
-                {{info.now.tmp || 0}}
+                {{weather.now.tmp || 0}}
                 <text>℃</text>
             </view>
             <view class="weather-info">
-                <text class="weather-type">{{info.now.cond_txt || '暂无数据'}}</text>
-                <text class="weather-desc">能见度 {{info.now.vis || 0}}</text>
+                <text class="weather-type">{{weather.now.cond_txt || '暂无数据'}}</text>
+                <text class="weather-desc">能见度 {{weather.now.vis || 0}}</text>
             </view>
         </view>
     </view>
 
-    <view wx:if="{{nowInfo}}">
+    <view wx:if="{{weatherDesc}}">
         <view class="title-style">实况天气</view>
         <view class="details">
-            <view class="detail" wx:for="{{nowInfo}}" wx:key="{{index}}">
+            <view class="detail" wx:for="{{weatherDesc}}" wx:key="{{index}}">
                 <text>{{item.name}}</text>
                 <text>{{item.value}}</text>
             </view>
@@ -51,8 +52,8 @@
 
     <view wx:if="{{hourlyWeather}}">
         <view class="title-style">24小时预报</view>
-        <view class="hourly-content">
-            <view class="hourly-item" wx:for="{{hourlyWeather}}" wx:key="{{index}}">
+        <swiper class="hourly-content">
+            <swiper-item class="hourly-item" wx:for="{{hourlyWeather}}" wx:key="{{index}}">
                 <view class="details">
                     <view class="detail" wx:for="{{item.details}}" wx:key="{{index}}">
                         <text>{{item.name}}</text>
@@ -60,8 +61,8 @@
                     </view>
                 </view>
                 <view class="hourly-time">{{item.time}}</view>
-            </view>
-        </view>
+            </swiper-item>
+        </swiper>
     </view>
 
     <view wx:if="{{dailyWeather}}">
@@ -81,6 +82,25 @@
         </view>
     </view>
 
-	<view class="title-style" style='font-size: 20rpx;border: none;'>忍V殇</view>
+    <view class="title-style" style='font-size: 20rpx;border: none;'>忍V殇</view>
 </view>
-<nav-component></nav-component>
+
+<view class="nav-content">
+    <view class="nav-item" catchtap='menuChange'>
+        <image src="/asset/image/nav-dark.svg"></image>
+    </view>
+    <view class="nav-item">
+        <image src="/asset/image/location-dark.svg"></image>
+    </view>
+    <view class="nav-item">
+        <image src="/asset/image/about-dark.svg"></image>
+    </view>
+    <view class="nav-item">
+        <image src="/asset/image/share-dark.svg"></image>
+    </view>
+    <view class="nav-item">
+        <image src="/asset/image/setting-dark.svg"></image>
+    </view>
+</view>
+
+<!-- <nav-component></nav-component> -->

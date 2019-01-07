@@ -12,8 +12,9 @@ Page({
         bcgUrl: '/asset/image/bcg-1.jpg',
         searchText: null,
         city: '定位中',
-        info: null,
-        updateTime: '00:00',
+		updateTime: '00:00',
+        weather: null,
+		weatherDesc: null,
         hourlyWeather: null,
         dailyWeather: null,
         nowDesc: {
@@ -69,9 +70,9 @@ Page({
             const time = Utils.formatDate(now, 'hh:mm');
             this.getWeatherDesc(success.now, 1).then(suc => {
                 this.setData({
-                    info: success,
+                    weather: success,
                     updateTime: time,
-                    nowInfo: suc
+                    weatherDesc: suc
                 });
             });
         }).catch(error => {
@@ -300,6 +301,13 @@ Page({
     reloadPage() {
         this.getLocation();
         this.setNavigationBarColor();
-    }
+    },
+
+	/**
+	 * 主菜单点击
+	 */
+	menuChange(){
+
+	}
 
 })
