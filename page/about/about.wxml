@@ -1,5 +1,3 @@
-<!-- <nav-component></nav-component> -->
-
 <view class="about">
     <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
         <block wx:for="{{imgUrls}}" wx:key="{{index}}">

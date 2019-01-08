@@ -12,12 +12,13 @@ Page({
         bcgUrl: '/asset/image/bcg-1.jpg',
         searchText: null,
         city: '定位中',
-		updateTime: '00:00',
+        updateTime: '00:00',
         weather: null,
-		weatherDesc: null,
+		weatherDetail: null,
         hourlyWeather: null,
         dailyWeather: null,
-        nowDesc: {
+		animationFlag: true,
+        weatherDesc: {
             tmp: '温度(℃)',
             fl: '体感温度(℃)',
             cond_txt: '实况天气',
@@ -27,21 +28,21 @@ Page({
             wind_spd: '风速(km/h)',
             hum: '相对湿度(%)',
             pcpn: '降水量(mm)',
-			pres: '大气压强(mPa)',
+            pres: '大气压强(mPa)',
             vis: '能见度(km)',
             cloud: '云量'
         },
         hourlyDesc: {
             tmp: '温度(℃)',
             cond_txt: '实况天气',
-			wind_deg: '风向角度(deg)',
+            wind_deg: '风向角度(deg)',
             wind_dir: '风向',
-			wind_sc: '风力(级)',
-			wind_spd: '风速(km/h)',
-			hum: '相对湿度(%)',
-			pres: '大气压强(mPa)',
+            wind_sc: '风力(级)',
+            wind_spd: '风速(km/h)',
+            hum: '相对湿度(%)',
+            pres: '大气压强(mPa)',
             pop: '降水概率(%)',
-            dew:'露点温度',
+            dew: '露点温度',
             cloud: '云量(%)'
         }
     },
@@ -72,7 +73,7 @@ Page({
                 this.setData({
                     weather: success,
                     updateTime: time,
-                    weatherDesc: suc
+					weatherDetail: suc
                 });
             });
         }).catch(error => {
@@ -239,7 +240,7 @@ Page({
     getWeatherDesc(wetaher, flag) {
         return new Promise(resolve => {
             const desc = [];
-			const obj = flag === 1 ? this.data.nowDesc : this.data.hourlyDesc;
+			const obj = flag === 1 ? this.data.weatherDesc : this.data.hourlyDesc;
             for (let i in obj) {
                 const o = {
                     value: wetaher[i],
@@ -304,10 +305,134 @@ Page({
     },
 
 	/**
-	 * 主菜单点击
+	 * 分享
 	 */
-	menuChange(){
+	goShare(){
+		wx.showShareMenu({
+			withShareTicket: true
+		})
+	},
 
+	/**
+	 * 跳转城市
+	 */
+	goCity(){
+		this.menuChange();
+		wx.navigateTo({
+			url: '/page/city/city',
+		});
+	},
+
+	/**
+	 * 跳转关于
+	 */
+	goAbout(){
+		this.menuChange();
+		wx.navigateTo({
+			url: '/page/about/about',
+		});
+	},
+
+	/**
+	 * 跳转系统信息
+	 */
+	goSystem(){
+		this.menuChange();
+		wx.navigateTo({
+			url: '/page/system/system',
+		});
+	},
+
+    /**
+     * 主菜单点击
+     */
+    menuChange() {
+        if (this.data.animationFlag) {
+			this.animationRun();
+			this.setData({
+				animationFlag: false
+			})
+        }else{
+			this.animationBack();
+			this.setData({
+				animationFlag: true
+			})
+		}
+    },
+
+    /**
+     * 动画启动
+     */
+	animationRun() {
+        const animationZero = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-out'
+        });
+        const animationOne = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-out'
+        });
+        const animationTwo = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-out'
+        });
+        const animationThree = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-out'
+        });
+        const animationFour = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-out'
+        });
+        animationZero.rotateZ(180).step();
+        animationOne.translate(0, -50).rotateZ(360).opacity(1).step();
+        animationTwo.translate(-Math.sqrt(2500 - 625), -25).rotateZ(360).opacity(1).step();
+        animationThree.translate(-Math.sqrt(2500 - 625), 25).rotateZ(360).opacity(1).step();
+        animationFour.translate(0, 50).rotateZ(360).opacity(1).step();
+        this.setData({
+            animationZero: animationZero.export(),
+            animationOne: animationOne.export(),
+            animationTwo: animationTwo.export(),
+            animationThree: animationThree.export(),
+            animationFour: animationFour.export()
+        })
+    },
+
+    /**
+     * 动画恢复
+     */
+	animationBack(){
+		const animationZero = wx.createAnimation({
+			duration: 200,
+			timingFunction: 'ease-in'
+		});
+		const animationOne = wx.createAnimation({
+			duration: 200,
+			timingFunction: 'ease-in'
+		});
+		const animationTwo = wx.createAnimation({
+			duration: 200,
+			timingFunction: 'ease-in'
+		});
+		const animationThree = wx.createAnimation({
+			duration: 200,
+			timingFunction: 'ease-in'
+		});
+		const animationFour = wx.createAnimation({
+			duration: 200,
+			timingFunction: 'ease-in'
+		});
+		animationZero.rotateZ(0).step();
+		animationOne.translate(0, 0).rotateZ(0).opacity(0).step();
+		animationTwo.translate(0, 0).rotateZ(0).opacity(0).step();
+		animationThree.translate(0, 0).rotateZ(0).opacity(0).step();
+		animationFour.translate(0, 0).rotateZ(0).opacity(0).step();
+		this.setData({
+			animationZero: animationZero.export(),
+			animationOne: animationOne.export(),
+			animationTwo: animationTwo.export(),
+			animationThree: animationThree.export(),
+			animationFour: animationFour.export()
+		})
 	}
-
 })

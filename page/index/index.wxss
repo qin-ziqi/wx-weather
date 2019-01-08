@@ -176,7 +176,7 @@
 }
 
 .hourly-content {
-	height: 380rpx;
+    height: 380rpx;
     background: rgba(0, 0, 0, 0.4);
 }
 
@@ -238,7 +238,7 @@
 .nav-content {
     position: fixed;
     right: 100rpx;
-    bottom: 100rpx;
+    bottom: 200rpx;
 }
 
 .nav-item {
@@ -248,12 +248,17 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50rpx;
-    height: 50rpx;
+    width: 60rpx;
+    height: 60rpx;
     background: #fff;
     border-radius: 50%;
 }
 
 .nav-item image {
-    width: 40rpx;
+    width: 50rpx;
+}
+
+.nav-item:first-child{
+	opacity: 1;
+	z-index: 9;
 }

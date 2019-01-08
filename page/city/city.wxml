@@ -1,5 +1,3 @@
-<!-- <nav-component></nav-component> -->
-
 <view class="city">
     <view class="search">
         <view class="wrapper">

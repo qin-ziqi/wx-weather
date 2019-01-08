@@ -40,10 +40,10 @@
         </view>
     </view>
 
-    <view wx:if="{{weatherDesc}}">
+    <view wx:if="{{weatherDetail}}">
         <view class="title-style">实况天气</view>
         <view class="details">
-            <view class="detail" wx:for="{{weatherDesc}}" wx:key="{{index}}">
+            <view class="detail" wx:for="{{weatherDetail}}" wx:key="{{index}}">
                 <text>{{item.name}}</text>
                 <text>{{item.value}}</text>
             </view>
@@ -81,26 +81,23 @@
             </view>
         </view>
     </view>
-
     <view class="title-style" style='font-size: 20rpx;border: none;'>忍V殇</view>
 </view>
 
 <view class="nav-content">
-    <view class="nav-item" catchtap='menuChange'>
-        <image src="/asset/image/nav-dark.svg"></image>
+    <view class="nav-item" animation="{{animationZero}}" catchtap='menuChange'>
+        <image mode='widthFix' src="/asset/image/nav-dark.svg"></image>
     </view>
-    <view class="nav-item">
-        <image src="/asset/image/location-dark.svg"></image>
+    <view class="nav-item" animation="{{animationOne}}" catchtap='goShare'>
+        <image mode='widthFix' src="/asset/image/share-dark.svg"></image>
     </view>
-    <view class="nav-item">
-        <image src="/asset/image/about-dark.svg"></image>
+    <view class="nav-item" animation="{{animationTwo}}" catchtap='goCity'>
+        <image mode='widthFix' src="/asset/image/location-dark.svg"></image>
     </view>
-    <view class="nav-item">
-        <image src="/asset/image/share-dark.svg"></image>
+    <view class="nav-item" animation="{{animationThree}}" catchtap='goAbout'>
+        <image mode='widthFix' src="/asset/image/about-dark.svg"></image>
     </view>
-    <view class="nav-item">
-        <image src="/asset/image/setting-dark.svg"></image>
+    <view class="nav-item" animation="{{animationFour}}" catchtap='goSystem'>
+        <image mode='widthFix' src="/asset/image/setting-dark.svg"></image>
     </view>
 </view>
-
-<!-- <nav-component></nav-component> -->

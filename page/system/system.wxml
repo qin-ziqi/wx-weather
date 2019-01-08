@@ -1,5 +1,3 @@
-<!-- <nav-component></nav-component> -->
-
 <view class="system">
     <view class="brand">
         <image src="/asset/image/mobile.svg"></image>
