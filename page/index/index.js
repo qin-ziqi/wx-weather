@@ -14,10 +14,10 @@ Page({
         city: '定位中',
         updateTime: '00:00',
         weather: null,
-		weatherDetail: null,
+        weatherDetail: null,
         hourlyWeather: null,
         dailyWeather: null,
-		animationFlag: true,
+        animationFlag: true,
         weatherDesc: {
             tmp: '温度(℃)',
             fl: '体感温度(℃)',
@@ -58,10 +58,6 @@ Page({
      * 页面初始化
      */
     init(city, callback) {
-        this.setData({
-            city
-        });
-
         /**
          * 当前的天气
          */
@@ -71,9 +67,10 @@ Page({
             const time = Utils.formatDate(now, 'hh:mm');
             this.getWeatherDesc(success.now, 1).then(suc => {
                 this.setData({
+                    city,
                     weather: success,
                     updateTime: time,
-					weatherDetail: suc
+                    weatherDetail: suc
                 });
             });
         }).catch(error => {
@@ -114,6 +111,8 @@ Page({
             console.log(error);
         });
 
+        wx.stopPullDownRefresh();
+
         callback && callback()
     },
 
@@ -121,12 +120,23 @@ Page({
      * 获取地理位置信息
      */
     getLocation() {
-        wx.getLocation({
+        const that = this;
+        wx.getStorage({
+            key: 'location',
             success: res => {
-                this.getGlobalCity(`${res.longitude},${res.latitude}`).then(success => {
-                    const city = success.data.regeocode.addressComponent.district;
-                    GlobalData.location = city;
-                    this.init(city);
+                GlobalData.location = res.data;
+                that.init(res.data);
+            },
+            fail: msg => {
+                Utils.errorHandler('获取缓存失败');
+                wx.getLocation({
+                    success: res => {
+                        that.getGlobalCity(`${res.longitude},${res.latitude}`).then(success => {
+                            const city = success.data.regeocode.addressComponent.district;
+                            GlobalData.location = city;
+                            that.init(city);
+                        })
+                    }
                 })
             }
         })
@@ -240,7 +250,7 @@ Page({
     getWeatherDesc(wetaher, flag) {
         return new Promise(resolve => {
             const desc = [];
-			const obj = flag === 1 ? this.data.weatherDesc : this.data.hourlyDesc;
+            const obj = flag === 1 ? this.data.weatherDesc : this.data.hourlyDesc;
             for (let i in obj) {
                 const o = {
                     value: wetaher[i],
@@ -304,66 +314,66 @@ Page({
         this.setNavigationBarColor();
     },
 
-	/**
-	 * 分享
-	 */
-	goShare(){
-		wx.showShareMenu({
-			withShareTicket: true
-		})
-	},
+    /**
+     * 分享
+     */
+    goShare() {
+        wx.showShareMenu({
+            withShareTicket: true
+        })
+    },
 
-	/**
-	 * 跳转城市
-	 */
-	goCity(){
-		this.menuChange();
-		wx.navigateTo({
-			url: '/page/city/city',
-		});
-	},
+    /**
+     * 跳转城市
+     */
+    goCity() {
+        this.menuChange();
+        wx.navigateTo({
+            url: '/page/city/city',
+        });
+    },
 
-	/**
-	 * 跳转关于
-	 */
-	goAbout(){
-		this.menuChange();
-		wx.navigateTo({
-			url: '/page/about/about',
-		});
-	},
+    /**
+     * 跳转关于
+     */
+    goAbout() {
+        this.menuChange();
+        wx.navigateTo({
+            url: '/page/about/about',
+        });
+    },
 
-	/**
-	 * 跳转系统信息
-	 */
-	goSystem(){
-		this.menuChange();
-		wx.navigateTo({
-			url: '/page/system/system',
-		});
-	},
+    /**
+     * 跳转系统信息
+     */
+    goSystem() {
+        this.menuChange();
+        wx.navigateTo({
+            url: '/page/system/system',
+        });
+    },
 
     /**
      * 主菜单点击
      */
     menuChange() {
         if (this.data.animationFlag) {
-			this.animationRun();
-			this.setData({
-				animationFlag: false
-			})
-        }else{
-			this.animationBack();
-			this.setData({
-				animationFlag: true
-			})
-		}
+            this.animationRun();
+            this.setData({
+                animationFlag: false
+            })
+        } else {
+            this.animationBack();
+            this.setData({
+                animationFlag: true
+            })
+        }
     },
 
     /**
      * 动画启动
      */
-	animationRun() {
+    animationRun() {
         const animationZero = wx.createAnimation({
             duration: 200,
             timingFunction: 'ease-out'
@@ -401,38 +411,49 @@ Page({
     /**
      * 动画恢复
      */
-	animationBack(){
-		const animationZero = wx.createAnimation({
-			duration: 200,
-			timingFunction: 'ease-in'
+    animationBack() {
+        const animationZero = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-in'
+        });
+        const animationOne = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-in'
+        });
+        const animationTwo = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-in'
+        });
+        const animationThree = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-in'
+        });
+        const animationFour = wx.createAnimation({
+            duration: 200,
+            timingFunction: 'ease-in'
+        });
+        animationZero.rotateZ(0).step();
+        animationOne.translate(0, 0).rotateZ(0).opacity(0).step();
+        animationTwo.translate(0, 0).rotateZ(0).opacity(0).step();
+        animationThree.translate(0, 0).rotateZ(0).opacity(0).step();
+        animationFour.translate(0, 0).rotateZ(0).opacity(0).step();
+        this.setData({
+            animationZero: animationZero.export(),
+            animationOne: animationOne.export(),
+            animationTwo: animationTwo.export(),
+            animationThree: animationThree.export(),
+            animationFour: animationFour.export()
+        })
+    },
+
+    /**
+     * 生命周期函数--监听页面卸载
+     */
+    onUnload: function() {
+
+		wx.setStorage({
+			key: 'location',
+			data: this.data.city
 		});
-		const animationOne = wx.createAnimation({
-			duration: 200,
-			timingFunction: 'ease-in'
-		});
-		const animationTwo = wx.createAnimation({
-			duration: 200,
-			timingFunction: 'ease-in'
-		});
-		const animationThree = wx.createAnimation({
-			duration: 200,
-			timingFunction: 'ease-in'
-		});
-		const animationFour = wx.createAnimation({
-			duration: 200,
-			timingFunction: 'ease-in'
-		});
-		animationZero.rotateZ(0).step();
-		animationOne.translate(0, 0).rotateZ(0).opacity(0).step();
-		animationTwo.translate(0, 0).rotateZ(0).opacity(0).step();
-		animationThree.translate(0, 0).rotateZ(0).opacity(0).step();
-		animationFour.translate(0, 0).rotateZ(0).opacity(0).step();
-		this.setData({
-			animationZero: animationZero.export(),
-			animationOne: animationOne.export(),
-			animationTwo: animationTwo.export(),
-			animationThree: animationThree.export(),
-			animationFour: animationFour.export()
-		})
-	}
+    },
 })

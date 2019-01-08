@@ -35,28 +35,44 @@ Page({
      * 获取热门城市
      */
     getHotCity() {
-        wx.request({
-            url: GlobalData.hefengApi.hotCity,
-            data: {
-                group: 'cn',
-                key: GlobalData.hefengKey
-            },
+        const that = this;
+        wx.getStorage({
+            key: 'hot',
             success: res => {
-                if (res.statusCode === 200) {
-                    const data = res.data.HeWeather6[0];
-                    if (data.status === 'ok') {
-                        this.setData({
-                            hotCities: data.basic
-                        })
-                    } else {
-                        Utils.errorHandler('获取热门城市失败');
-                    }
-                }
+				this.setData({
+					hotCities: res.data
+				});
             },
-            fail: info => {
-                Utils.errorHandler('获取热门城市失败');
+            fail: msg => {
+				wx.request({
+					url: GlobalData.hefengApi.hotCity,
+					data: {
+						group: 'cn',
+						key: GlobalData.hefengKey
+					},
+					success: res => {
+						if (res.statusCode === 200) {
+							const data = res.data.HeWeather6[0];
+							if (data.status === 'ok') {
+								that.setData({
+									hotCities: data.basic
+								});
+								wx.setStorage({
+									key: 'hot',
+									data: data.basic
+								});
+							} else {
+								Utils.errorHandler('获取热门城市失败');
+							}
+						}
+					},
+					fail: info => {
+						Utils.errorHandler('获取热门城市失败');
+					}
+				});
             }
-        });
+        })
+       
     },
 
     /**
