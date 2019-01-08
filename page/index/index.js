@@ -58,14 +58,16 @@ Page({
      * 页面初始化
      */
     init(city, callback) {
-        /**
-         * 当前的天气
-         */
+        // 当前的天气
         this.getWeather(city).then(success => {
             this.clearInput();
             const now = new Date();
             const time = Utils.formatDate(now, 'hh:mm');
             this.getWeatherDesc(success.now, 1).then(suc => {
+				wx.setStorage({
+					key: 'location',
+					data: city
+				});
                 this.setData({
                     city,
                     weather: success,
@@ -77,9 +79,7 @@ Page({
             Utils.errorHandler(error);
         });
 
-        /**
-         * 24小时天气信息
-         */
+        // 24小时天气信息
         this.getHourly(city).then(success => {
             const hourlyList = [];
             success.hourly.forEach((item, i) => {
@@ -100,9 +100,7 @@ Page({
             console.log(error);
         });
 
-        /**
-         * 七天天气信息
-         */
+        // 七天天气信息
         this.getDaily(city).then(success => {
             this.setData({
                 dailyWeather: success.daily_forecast
@@ -451,9 +449,5 @@ Page({
      */
     onUnload: function() {
 
-		wx.setStorage({
-			key: 'location',
-			data: this.data.city
-		});
     },
 })
