@@ -8,8 +8,10 @@ Page({
      */
     data: {
         weatherIconUrl: GlobalData.weatherIconUrl,
-        bcgColor: '#13223F',
-        bcgUrl: '/asset/image/bcg-1.jpg',
+        bcg: {
+            color: '#5A9146',
+            src: '/asset/image/tongyong.jpg'
+        },
         searchText: null,
         city: '定位中',
         updateTime: '00:00',
@@ -44,13 +46,45 @@ Page({
             pop: '降水概率(%)',
             dew: '露点温度',
             cloud: '云量(%)'
-        }
+        },
+        bcgList: [{
+            src: '/asset/image/tongyong.jpg',
+            color: '#5A9146',
+            name: '通用',
+            value: 'default'
+        }, {
+            src: '/asset/image/qing.jpg',
+            color: '#358DBB',
+            name: '晴',
+            value: '1'
+        }, {
+            src: '/asset/image/feng.jpg',
+            color: '#496781',
+            name: '风',
+            value: '2'
+        }, {
+            src: '/asset/image/yu.jpg',
+            color: '#5E6F9C',
+            name: '雨',
+            value: '3'
+        }, {
+            src: '/asset/image/xue.jpg',
+            color: '#9CB8DB',
+            name: '雪',
+            value: '4'
+        }, {
+            src: '/asset/image/mai.jpg',
+            color: '#A3BDF0',
+            name: '霾',
+            value: '5'
+        }]
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
+        this.checkUpdate();
         this.reloadPage();
     },
 
@@ -58,56 +92,9 @@ Page({
      * 页面初始化
      */
     init(city, callback) {
-        // 当前的天气
-        this.getWeather(city).then(success => {
-            this.clearInput();
-            const now = new Date();
-            const time = Utils.formatDate(now, 'hh:mm');
-            this.getWeatherDesc(success.now, 1).then(suc => {
-				wx.setStorage({
-					key: 'location',
-					data: city
-				});
-                this.setData({
-                    city,
-                    weather: success,
-                    updateTime: time,
-                    weatherDetail: suc
-                });
-            });
-        }).catch(error => {
-            Utils.errorHandler(error);
-        });
-
-        // 24小时天气信息
-        this.getHourly(city).then(success => {
-            const hourlyList = [];
-            success.hourly.forEach((item, i) => {
-                this.getWeatherDesc(item, 2).then(suc => {
-                    const o = {
-                        time: item.time,
-                        details: suc
-                    }
-                    hourlyList.push(o);
-                    if (i === success.hourly.length - 1) {
-                        this.setData({
-                            hourlyWeather: hourlyList
-                        });
-                    }
-                })
-            })
-        }).catch(error => {
-            console.log(error);
-        });
-
-        // 七天天气信息
-        this.getDaily(city).then(success => {
-            this.setData({
-                dailyWeather: success.daily_forecast
-            });
-        }).catch(error => {
-            console.log(error);
-        });
+        this.getWeather(city);
+        this.getHourly(city);
+        this.getDaily(city);
 
         wx.stopPullDownRefresh();
 
@@ -118,33 +105,34 @@ Page({
      * 获取地理位置信息
      */
     getLocation() {
-        const that = this;
-        wx.getStorage({
-            key: 'location',
-            success: res => {
-                GlobalData.location = res.data;
-                that.init(res.data);
-            },
-            fail: msg => {
-                Utils.errorHandler('获取缓存失败');
-                wx.getLocation({
-                    success: res => {
-                        that.getGlobalCity(`${res.longitude},${res.latitude}`).then(success => {
-                            const city = success.data.regeocode.addressComponent.district;
-                            GlobalData.location = city;
-                            that.init(city);
-                        })
-                    }
-                })
-            }
-        })
+        const promise = new Promise((resolve, reject) => {
+            wx.getStorage({
+                key: 'location',
+                success: res => {
+                    resolve(res.data);
+                },
+                fail: msg => {
+                    reject();
+                }
+            });
+        });
+
+        promise.then(success => {
+            this.init(success);
+        }).catch(msg => {
+            wx.getLocation({
+                success: res => {
+                    this.getGlobalCity(`${res.longitude},${res.latitude}`);
+                }
+            })
+        });
     },
 
     /**
      * 获取城市信息
      */
     getGlobalCity(location) {
-        return new Promise(resolve => {
+        const promise = new Promise(resolve => {
             wx.request({
                 url: GlobalData.gaodeApi.location,
                 data: {
@@ -152,17 +140,21 @@ Page({
                     key: GlobalData.gaodeKey,
                 },
                 success(res) {
-                    resolve(res);
+                    resolve(res.data.regeocode.addressComponent.district);
                 }
             })
         });
+
+        promise.then(success => {
+            this.init(success);
+        })
     },
 
     /**
      * 获取当前天气数据
      */
     getWeather(location) {
-        return new Promise((resolve, reject) => {
+        const promise = new Promise(resolve => {
             wx.request({
                 url: GlobalData.hefengApi.weather,
                 data: {
@@ -178,11 +170,28 @@ Page({
                             Utils.errorHandler('获取天气信息失败');
                         }
                     }
-                },
-                fail: msg => {
-                    reject(msg);
                 }
             })
+        });
+
+        promise.then(success => {
+            this.clearInput();
+            this.selectBcg(success.now);
+
+            const now = new Date();
+            const time = Utils.formatDate(now, 'hh:mm');
+            this.getWeatherDesc(success.now, 1).then(suc => {
+                wx.setStorage({
+                    key: 'location',
+                    data: location
+                });
+                this.setData({
+                    city: location,
+                    weather: success,
+                    updateTime: time,
+                    weatherDetail: suc
+                });
+            });
         });
     },
 
@@ -190,7 +199,7 @@ Page({
      * 获取24小时天气信息
      */
     getHourly(location) {
-        return new Promise((resolve, reject) => {
+        const promise = new Promise(resolve => {
             wx.request({
                 url: GlobalData.hefengApi.hourly,
                 data: {
@@ -202,14 +211,27 @@ Page({
                         let data = res.data.HeWeather6[0]
                         if (data.status === 'ok') {
                             resolve(data);
-                        } else {
-                            Utils.errorHandler('获取天气信息失败');
                         }
                     }
-                },
-                fail: msg => {
-                    reject(msg);
                 }
+            })
+        });
+
+        promise.then(success => {
+            const hourlyList = [];
+            success.hourly.forEach((item, i) => {
+                this.getWeatherDesc(item, 2).then(suc => {
+                    const o = {
+                        time: item.time,
+                        details: suc
+                    }
+                    hourlyList.push(o);
+                    if (i === success.hourly.length - 1) {
+                        this.setData({
+                            hourlyWeather: hourlyList
+                        });
+                    }
+                })
             })
         });
     },
@@ -218,7 +240,7 @@ Page({
      * 获取七天的天气信息
      */
     getDaily(location) {
-        return new Promise((resolve, reject) => {
+        const promise = new Promise(resolve => {
             wx.request({
                 url: GlobalData.hefengApi.daily,
                 data: {
@@ -230,15 +252,28 @@ Page({
                         let data = res.data.HeWeather6[0]
                         if (data.status === 'ok') {
                             resolve(data);
-                        } else {
-                            Utils.errorHandler('获取天气信息失败');
                         }
                     }
-                },
-                fail: msg => {
-                    reject(msg);
                 }
             })
+        });
+
+        promise.then(success => {
+            const dailyWeather = success.daily_forecast.map((item, i) => {
+                if (i === 0) {
+                    item.date = '今天';
+                }
+                if (i === 1) {
+                    item.date = '明天';
+                }
+                if (i === 2) {
+                    item.date = '后天';
+                }
+                return item;
+            });
+            this.setData({
+                dailyWeather: dailyWeather
+            });
         });
     },
 
@@ -264,11 +299,26 @@ Page({
      * 设置导航栏背景色
      */
     setNavigationBarColor() {
-        const bcgColor = this.data.bcgColor;
+        const bcgColor = this.data.bcg.color;
         wx.setNavigationBarColor({
             frontColor: '#ffffff',
             backgroundColor: bcgColor
         })
+    },
+
+    /**
+     * 根据天气概况选择背景图
+     */
+    selectBcg(data) {
+        const val = data.cond_code.substring(0, 1);
+        let obj = this.data.bcgList.find(item => String(val) === String(item.value));
+        if (!obj) {
+            obj = this.data.bcgList[0];
+        }
+        this.setData({
+            bcg: obj
+        });
+        this.setNavigationBarColor();
     },
 
     /**
@@ -309,7 +359,36 @@ Page({
      */
     reloadPage() {
         this.getLocation();
-        this.setNavigationBarColor();
+    },
+
+    /**
+     * 检测是否有版本更新
+     */
+    checkUpdate() {
+        const updateManager = wx.getUpdateManager()
+
+        updateManager.onUpdateReady(function() {
+            wx.showModal({
+                title: '更新提示',
+                content: '新版本已经准备好，是否重启应用？',
+                success(res) {
+                    if (res.confirm) {
+                        updateManager.applyUpdate();
+                    }
+                }
+            })
+        })
+    },
+
+    /**
+     * 设置分享
+     */
+    onShareAppMessage: function() {
+        return {
+            title: '出行早知道',
+            path: '/page/index/index',
+            imageUrl: '/asset/image/share_info.jpg'
+        }
     },
 
     /**

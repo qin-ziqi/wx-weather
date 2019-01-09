@@ -5,18 +5,24 @@ Page({
      */
     data: {
         imgUrls: [{
-                src: '/asset/image/swiper-1.jpg',
-                name: '风景'
-            },
-            {
-                src: '/asset/image/swiper-2.jpg',
-                name: '宠物'
-            },
-            {
-                src: '/asset/image/swiper-3.jpg',
-                name: '人物'
-            }
-        ],
+            src: '/asset/image/tongyong.jpg',
+            name: '通用'
+        }, {
+            src: '/asset/image/qing.jpg',
+            name: '晴'
+        }, {
+            src: '/asset/image/feng.jpg',
+            name: '风'
+        }, {
+            src: '/asset/image/yu.jpg',
+            name: '雨'
+        }, {
+            src: '/asset/image/xue.jpg',
+            name: '雪'
+        }, {
+            src: '/asset/image/mai.jpg',
+            name: '霾'
+        }],
         indicatorDots: true,
         autoplay: true,
         interval: 2000,

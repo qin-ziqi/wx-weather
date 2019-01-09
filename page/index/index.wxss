@@ -248,17 +248,19 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60rpx;
-    height: 60rpx;
-    background: #fff;
-    border-radius: 50%;
-}
-
-.nav-item image {
     width: 50rpx;
+    height: 50rpx;
+    border-radius: 50%;
+    opacity: 0;
 }
 
-.nav-item:first-child{
-	opacity: 1;
-	z-index: 9;
+.nav-item:first-child {
+    opacity: 1;
+    z-index: 9;
+}
+
+.nav-item + button {
+    border: 0;
+    padding: 0;
+	margin: 0;
 }

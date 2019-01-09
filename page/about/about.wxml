@@ -3,7 +3,7 @@
         <block wx:for="{{imgUrls}}" wx:key="{{index}}">
             <swiper-item>
                 <view class="swiper-item">
-                    <image src="{{item.src}}"></image>
+                    <image mode="aspectFill" src="{{item.src}}"></image>
                 </view>
             </swiper-item>
         </block>

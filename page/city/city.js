@@ -1,5 +1,4 @@
-const StaticData = require('../../asset/data/cityData.js')
-const GlobalData = getApp().globalData;
+const StaticData = require('../../asset/data/cityData.js');
 const Utils = require('../../utils/utils');
 
 Page({
@@ -26,9 +25,19 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function() {
-        this.setData({
-            location: GlobalData.location
-        })
+		const promise = new Promise(resolve => {
+			wx.getStorage({
+				key: 'location',
+				success: function (res) {
+					resolve(res.data);
+				}
+			});
+		});
+		promise.then(success => {
+			this.setData({
+				location: success
+			})
+		});		
     },
 
     /**

@@ -1,6 +1,6 @@
 <view class="container">
-    <view class="bcg" wx:if='{{!bcgUrl}}' style="background: {{bcgColor}}"></view>
-    <image class='bcg' wx:if='{{bcgUrl}}' src='{{bcgUrl}}' mode='aspectFill'></image>
+    <view class="bcg" wx:if='{{!bcg.src}}' style="background: {{bcg.color}}"></view>
+    <image class='bcg' wx:if='{{bcg.src}}' src='{{bcg.src}}' mode='aspectFill'></image>
 
     <view class="search">
         <view class="wrapper">
@@ -85,19 +85,10 @@
 </view>
 
 <view class="nav-content">
-    <view class="nav-item" animation="{{animationZero}}" catchtap='menuChange'>
-        <image mode='widthFix' src="/asset/image/nav-dark.svg"></image>
-    </view>
-    <view class="nav-item" animation="{{animationOne}}" catchtap='goShare'>
-        <image mode='widthFix' src="/asset/image/share-dark.svg"></image>
-    </view>
-    <view class="nav-item" animation="{{animationTwo}}" catchtap='goCity'>
-        <image mode='widthFix' src="/asset/image/location-dark.svg"></image>
-    </view>
-    <view class="nav-item" animation="{{animationThree}}" catchtap='goAbout'>
-        <image mode='widthFix' src="/asset/image/about-dark.svg"></image>
-    </view>
-    <view class="nav-item" animation="{{animationFour}}" catchtap='goSystem'>
-        <image mode='widthFix' src="/asset/image/setting-dark.svg"></image>
-    </view>
+    <image class="nav-item" mode='widthFix' src="/asset/image/menu.png" animation="{{animationZero}}" catchtap='menuChange'></image>
+    <image class="nav-item" mode='widthFix' animation="{{animationOne}}" src="/asset/image/share_circle.png"></image>
+    <button class="nav-item" plain='true' open-type='share' animation="{{animationOne}}" catchtap='goShare'></button>
+    <image class="nav-item" mode='widthFix' src="/asset/image/location.png" animation="{{animationTwo}}" catchtap='goCity'></image>
+    <image class="nav-item" mode='widthFix' src="/asset/image/info.png" animation="{{animationThree}}" catchtap='goAbout'></image>
+    <image class="nav-item" mode='widthFix' src="/asset/image/setting.png" animation="{{animationFour}}" catchtap='goSystem'></image>
 </view>

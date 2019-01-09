@@ -9,7 +9,6 @@ App({
     },
     globalData: {
         systemInfo: null,
-        location: null,
         hefengKey: '796ec8fe17934228b7a008b85841a6d3',
 		gaodeKey: 'ce57ce5cc135a591d6e6e9eb6394c93c',
         weatherIconUrl: 'https://cdn.heweather.com/cond_icon/',
