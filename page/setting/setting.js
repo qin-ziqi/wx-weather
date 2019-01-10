@@ -16,7 +16,7 @@ Page({
         const self = this;
         wx.getScreenBrightness({
             success(res) {
-                const value = res.value * 100;
+                const value = Math.floor(res.value) * 100;
                 self.setData({
                     screenBrightLevel: value
                 });
