@@ -8,10 +8,7 @@ Page({
      */
     data: {
         weatherIconUrl: GlobalData.weatherIconUrl,
-        bcg: {
-            color: '#5A9146',
-            src: '/asset/image/tongyong.jpg'
-        },
+        bcg: {},
         searchText: null,
         city: '定位中',
         updateTime: '00:00',
@@ -88,6 +85,16 @@ Page({
         this.reloadPage();
     },
 
+	/**
+	 * 生命周期函数--监听页面初次渲染完成
+	 */
+	onReady: function () {
+		wx.showLoading({});
+		setTimeout(() => {
+			wx.hideLoading({});
+		}, 500);
+	},
+
     /**
      * 页面初始化
      */
@@ -147,10 +154,10 @@ Page({
 
         promise.then(success => {
             this.init(success);
-			wx.setStorage({
-				key: 'location',
-				data: success
-			});
+            wx.setStorage({
+                key: 'location',
+                data: success
+            });
         })
     },
 
@@ -430,7 +437,7 @@ Page({
     goSystem() {
         this.menuChange();
         wx.navigateTo({
-            url: '/page/system/system',
+			url: '/page/setting/setting',
         });
     },
 

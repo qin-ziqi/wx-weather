@@ -1,0 +1,94 @@
+<view class="setting">
+    <view class="info">
+        <view class="title">系统信息</view>
+        <view class="list">
+            <view class="list-detail" catchtap='goSystem'>
+                <text>查看系统信息</text>
+                <image mode='widthFix' src="/asset/image/arrow-right.svg"></image>
+            </view>
+        </view>
+    </view>
+
+    <view class="info">
+        <view class="title">小工具</view>
+        <view class="list">
+            <view class="list-title">震动</view>
+            <view class="list-detail" catchtap='checkShock'>
+                <text>检测手机震动效果</text>
+                <image mode='widthFix' src="/asset/image/arrow-right.svg"></image>
+            </view>
+        </view>
+
+        <view class="list">
+            <view class="list-title">NFC</view>
+            <view class="list-detail" catchtap='checkNfcSupport'>
+                <text>检测是否支持NFC</text>
+                <image mode='widthFix' src="/asset/image/arrow-right.svg"></image>
+            </view>
+        </view>
+
+        <view class="list">
+            <view class="list-title">网络</view>
+            <view class="list-detail" catchtap='checkNetworkType'>
+                <text>检测网络类型</text>
+                <image mode='widthFix' src="/asset/image/arrow-right.svg"></image>
+            </view>
+        </view>
+
+        <view class="list">
+            <view class="list-title">电量</view>
+            <view class="list-detail" catchtap='checkPowerLevel'>
+                <text>检测手机电量</text>
+                <image mode='widthFix' src="/asset/image/arrow-right.svg"></image>
+            </view>
+        </view>
+
+        <view class="list">
+            <view class="list-title">扫码</view>
+            <view class="list-detail" catchtap='checkScanQrcode'>
+                <text>扫描二维码</text>
+                <image mode='widthFix' src="/asset/image/arrow-right.svg"></image>
+            </view>
+        </view>
+    </view>
+
+    <view class="info">
+        <view class="title">屏幕亮度</view>
+        <view class="list">
+            <view class="list-detail">
+                <view class="list-desc">
+                    <text>保持屏幕常亮</text>
+                    <text class="text-desc">仅在当前页面、当次生效，离开小程序后设置失效</text>
+                </view>
+                <switch color='#10aeff' bindchange="switchChange" />
+            </view>
+
+            <view class="list-detail">
+                <view class="list-desc">
+                    <text>当前屏幕亮度</text>
+                    <text class="text-desc">范围0~100，0 最暗，100 最亮</text>
+                </view>
+                <text>{{screenBrightLevel}}</text>
+            </view>
+            <view class="list-detail">
+                <view class="list-desc set-bright">
+                    <text>设置屏幕亮度</text>
+                    <slider value="{{screenBrightLevel}}" bindchange="sliderchange" min="0" max="100" show-value />
+                </view>
+            </view>
+        </view>
+    </view>
+
+    <view class="info">
+        <view class="title">清除缓存</view>
+        <view class="list">
+            <view class="list-detail" catchtap='clearAllStorage'>
+                <view class="clear-style">
+                    <image mode='widthFix' src="/asset/image/warning.svg"></image>
+                    <text>清空所有本地数据</text>
+                </view>
+                <image mode='widthFix' src="/asset/image/arrow-right.svg"></image>
+            </view>
+        </view>
+    </view>
+</view>

@@ -1,0 +1,98 @@
+.setting {
+    font-size: 30rpx;
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+}
+
+.info {
+    padding: 40rpx;
+    margin-top: 20rpx;
+    background: #fff;
+}
+
+.title {
+    font-size: 32rpx;
+    color: #10aeff;
+}
+
+.info {
+    line-height: 2em;
+}
+
+.info:last-child {
+    margin-bottom: 20rpx;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: 10rpx;
+    box-sizing: border-box;
+    padding: 0 20rpx;
+}
+
+.list-title {
+    font-size: 30rpx;
+    color: #10aeff;
+}
+
+.list-detail {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 20rpx;
+}
+
+.list-detail + .list-detail {
+    margin-top: 20rpx;
+}
+
+.list-detail image {
+    width: 30rpx;
+}
+
+.list-desc {
+    line-height: 1em;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-desc {
+    font-size: 20rpx;
+}
+
+.set-bright {
+    width: 100%;
+}
+
+.wx-switch-input {
+    width: 84rpx !important;
+    height: 43rpx !important;
+}
+
+.wx-switch-input::before {
+    width: 82rpx !important;
+    height: 38rpx !important;
+}
+
+.wx-switch-input::after {
+    width: 38rpx !important;
+    height: 38rpx !important;
+}
+
+.clear-style {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.clear-style imgae {
+    width: 24rpx;
+}

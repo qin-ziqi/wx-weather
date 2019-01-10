@@ -15,7 +15,7 @@
             <view class="list-icon">
                 <image src="{{item.img}}"></image>
             </view>
-            <view class="list-item">
+            <view>
                 <view>{{item.type}}</view>
                 <view>{{item.info}}</view>
             </view>
@@ -28,7 +28,7 @@
             <view class="list-icon">
                 <image src="/asset/image/github.svg"></image>
             </view>
-            <view class="list-item">
+            <view>
                 <view>开源信息</view>
                 <view>https://github.com/qin-ziqi/wx-weather</view>
             </view>
@@ -41,7 +41,7 @@
             <view class="list-icon">
                 <image src="/asset/image/cloud.svg"></image>
             </view>
-            <view class="list-item">
+            <view>
                 <view>气象数据来源</view>
                 <view>和风天气</view>
             </view>

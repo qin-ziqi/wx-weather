@@ -1,6 +1,3 @@
 {
-	"navigationBarTitleText": "系统信息",
-	"usingComponents": {
-		"nav-component": "/component/nav-component/nav-component"
-	}
+	"navigationBarTitleText": "系统信息"
 }

@@ -248,8 +248,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 50rpx;
-    height: 50rpx;
+    width: 60rpx;
+    height: 60rpx;
     border-radius: 50%;
     opacity: 0;
 }

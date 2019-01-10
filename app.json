@@ -1,6 +1,7 @@
 {
 	"pages": [
 		"page/index/index",
+		"page/setting/setting",
 		"page/about/about",
 		"page/city/city",
 		"page/system/system"
