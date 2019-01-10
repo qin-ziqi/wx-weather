@@ -1,4 +1,5 @@
 const StaticData = require('../../asset/data/cityData.js');
+const GlobalData = getApp().globalData;
 const Utils = require('../../utils/utils');
 
 Page({

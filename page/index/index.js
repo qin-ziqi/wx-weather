@@ -107,7 +107,7 @@ Page({
     getLocation() {
         const promise = new Promise((resolve, reject) => {
             wx.getStorage({
-                key: 'location',
+                key: 'city',
                 success: res => {
                     resolve(res.data);
                 },
@@ -147,6 +147,10 @@ Page({
 
         promise.then(success => {
             this.init(success);
+			wx.setStorage({
+				key: 'location',
+				data: success
+			});
         })
     },
 
@@ -182,7 +186,7 @@ Page({
             const time = Utils.formatDate(now, 'hh:mm');
             this.getWeatherDesc(success.now, 1).then(suc => {
                 wx.setStorage({
-                    key: 'location',
+                    key: 'city',
                     data: location
                 });
                 this.setData({
