@@ -8,7 +8,12 @@ Page({
      */
     data: {
         weatherIconUrl: GlobalData.weatherIconUrl,
-        bcg: {},
+        bcg: {
+			src: '/asset/image/tongyong.jpg',
+			color: '#5A9146',
+			name: '通用',
+			value: '0'
+		},
         searchText: null,
         city: '定位中',
         updateTime: '00:00',
@@ -129,7 +134,10 @@ Page({
         }).catch(() => {
             wx.getLocation({
                 success: res => {
-                    this.getGlobalCity(`${res.longitude},${res.latitude}`);
+                    this.getCityDetail(`${res.longitude},${res.latitude}`);
+                },
+                fail: () => {
+					this.init('北京');
                 }
             })
         });
@@ -138,7 +146,7 @@ Page({
     /**
      * 获取城市信息
      */
-    getGlobalCity(location) {
+	getCityDetail(location) {
         const promise = new Promise(resolve => {
             wx.request({
                 url: GlobalData.gaodeApi.location,
@@ -180,7 +188,6 @@ Page({
                     if (res.statusCode === 200) {
                         let data = res.data.HeWeather6[0]
                         if (data.status === 'ok') {
-
                             resolve(data);
                         } else {
                             Utils.errorHandler('获取天气信息失败');

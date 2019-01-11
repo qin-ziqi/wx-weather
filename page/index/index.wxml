@@ -81,7 +81,7 @@
             </view>
         </view>
     </view>
-    <view class="title-style" style='font-size: 20rpx;border: none;'>忍V殇</view>
+    <view wx:if="{{bcg.value !== '0'}}" class="title-style" style='font-size: 20rpx;border: none;'>忍V殇</view>
 </view>
 
 <view class="nav-content">
