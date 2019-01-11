@@ -12,7 +12,7 @@
     <view class="hot">
         <view class="title">热门城市</view>
         <view class="cities">
-            <view class="item active" catchtap='chooseCity' data-name="{{location}}">
+            <view wx:if="{{location}}" class="item active" catchtap='chooseCity' data-name="{{location}}">
                 <image class="icon" src="/asset/image/location.svg"></image>
                 <view>{{location}}</view>
             </view>
