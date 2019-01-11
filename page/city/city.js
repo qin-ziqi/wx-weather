@@ -11,7 +11,7 @@ Page({
         cities: null,
         filterCity: null,
         hotCities: [],
-        location: null
+        location: '定位'
     },
 
     /**
