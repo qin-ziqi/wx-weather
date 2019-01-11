@@ -14,12 +14,14 @@ App({
         weatherIconUrl: 'https://cdn.heweather.com/cond_icon/',
         hefengApi: {
 			hotCity: 'https://search.heweather.net/top',
+			findCity: 'https://search.heweather.net/find',
 			weather: 'https://free-api.heweather.net/s6/weather/now',
 			hourly: 'https://free-api.heweather.net/s6/weather/hourly',
 			daily: 'https://free-api.heweather.net/s6/weather/forecast'
         },
 		gaodeApi: {
-			location: 'https://restapi.amap.com/v3/geocode/regeo'
+			location: 'https://restapi.amap.com/v3/geocode/regeo',
+			district: 'https://restapi.amap.com/v3/config/district'
 		}
     }
 

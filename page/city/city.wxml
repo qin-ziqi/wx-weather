@@ -23,7 +23,7 @@
     </view>
 
     <view class="bottom">
-        <view wx:if="{{!filterCity}}" wx:key="{{index}}" wx:for="{{cities}}">
+        <view wx:if="{{!isSearch}}" wx:key="{{index}}" wx:for="{{allCities}}">
             <view class="key">{{index}}</view>
             <view class="values">
                 <view class="value" wx:key="{{index}}" wx:for="{{item}}" data-name="{{item.name}}" hover-class='hover' catchtap='chooseCity'>
@@ -31,13 +31,15 @@
                 </view>
             </view>
         </view>
-        <view wx:if="{{filterCity.length > 0}}">
+        <view class="filter" wx:if="{{isSearch}}">
             <view class="values">
-                <view class="value" wx:for="{{filterCity}}" wx:key="{{index}}" data-name="{{item.name}}" hover-class='hover' catchtap='chooseCity'>
+                <view class="value" wx:for="{{filterCities}}" wx:key="{{index}}" data-name="{{item.name}}" hover-class='hover' catchtap='chooseCity'>
                     {{item.name}}
+                    <text wx:if="{{item.desc}}" class="filter-desc">（{{item.desc}}）</text>
                 </view>
             </view>
+            <view class="empty" wx:if="{{!filterCities}}">未查到相关城市</view>
         </view>
+        <view class="empty" wx:if="{{!allCities}}">暂无可选城市</view>
     </view>
-    <view class="empty" wx:if="{{filterCity.length === 0 || !cities}}">暂无可选城市</view>
 </view>

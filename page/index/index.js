@@ -85,15 +85,15 @@ Page({
         this.reloadPage();
     },
 
-	/**
-	 * 生命周期函数--监听页面初次渲染完成
-	 */
-	onReady: function () {
-		wx.showLoading({});
-		setTimeout(() => {
-			wx.hideLoading({});
-		}, 500);
-	},
+    /**
+     * 生命周期函数--监听页面初次渲染完成
+     */
+    onReady: function() {
+        wx.showLoading();
+        setTimeout(() => {
+            wx.hideLoading();
+        }, 500);
+    },
 
     /**
      * 页面初始化
@@ -118,7 +118,7 @@ Page({
                 success: res => {
                     resolve(res.data);
                 },
-                fail: msg => {
+                fail: () => {
                     reject();
                 }
             });
@@ -126,7 +126,7 @@ Page({
 
         promise.then(success => {
             this.init(success);
-        }).catch(msg => {
+        }).catch(() => {
             wx.getLocation({
                 success: res => {
                     this.getGlobalCity(`${res.longitude},${res.latitude}`);
@@ -147,7 +147,11 @@ Page({
                     key: GlobalData.gaodeKey,
                 },
                 success(res) {
-                    resolve(res.data.regeocode.addressComponent.district);
+                    if (res.statusCode === 200) {
+                        if (res.data.status === '1') {
+                            resolve(res.data.regeocode.addressComponent.district);
+                        }
+                    }
                 }
             })
         });
@@ -176,6 +180,7 @@ Page({
                     if (res.statusCode === 200) {
                         let data = res.data.HeWeather6[0]
                         if (data.status === 'ok') {
+
                             resolve(data);
                         } else {
                             Utils.errorHandler('获取天气信息失败');
@@ -437,7 +442,7 @@ Page({
     goSystem() {
         this.menuChange();
         wx.navigateTo({
-			url: '/page/setting/setting',
+            url: '/page/setting/setting',
         });
     },
 
