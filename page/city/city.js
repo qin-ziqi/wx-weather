@@ -18,28 +18,55 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function(options) {
-		this.getHotCityStorage();
-		this.getAllCityStorage();
+        this.getLocation();
+        this.getHotCityStorage();
+        this.getAllCityStorage();
     },
 
     /**
-     * 生命周期函数--监听页面显示
+     * 获取定位信息
      */
-    onShow: function() {
+    getLocation() {
         const promise = new Promise(resolve => {
-            wx.getStorage({
-                key: 'location',
-                success: function(res) {
-                    resolve(res.data);
-                }
-            });
+			wx.getLocation({
+				success: res => {
+					resolve(res);
+				}
+			})
         });
-        promise.then(success => {
-            this.setData({
-                location: success
-            })
-        });
+
+		promise.then(success => {
+			this.getCityDetail(`${success.longitude},${success.latitude}`);
+		});
     },
+
+	/**
+	 * 获取城市信息
+	 */
+	getCityDetail(location) {
+		const promise = new Promise(resolve => {
+			wx.request({
+				url: GlobalData.gaodeApi.location,
+				data: {
+					location,
+					key: GlobalData.gaodeKey,
+				},
+				success(res) {
+					if (res.statusCode === 200) {
+						if (res.data.status === '1') {
+							resolve(res.data.regeocode.addressComponent.district);
+						}
+					}
+				}
+			})
+		});
+
+		promise.then(success => {
+			this.setData({
+				location: success
+			});
+		})
+	},
 
     /**
      * 获取热门城市缓存
@@ -49,7 +76,7 @@ Page({
             key: 'hotCities',
             success: res => {
                 this.setData({
-					hotCities: res.data
+                    hotCities: res.data
                 });
             },
             fail: () => {
@@ -87,28 +114,28 @@ Page({
                 hotCities: success
             });
             wx.setStorage({
-				key: 'hotCities',
+                key: 'hotCities',
                 data: success
             });
         })
     },
 
-	/**
-	 * 获取所有的城市信息缓存
-	 */
-	getAllCityStorage() {
-		wx.getStorage({
-			key: 'allCities',
-			success: res => {
-				this.setData({
-					allCities: res.data
-				});
-			},
-			fail: () => {
-				this.getAllCity();
-			}
-		});
-	},
+    /**
+     * 获取所有的城市信息缓存
+     */
+    getAllCityStorage() {
+        wx.getStorage({
+            key: 'allCities',
+            success: res => {
+                this.setData({
+                    allCities: res.data
+                });
+            },
+            fail: () => {
+                this.getAllCity();
+            }
+        });
+    },
     /**
      * 获取所有的城市信息
      */
@@ -144,22 +171,22 @@ Page({
         const sortCities = this.sort(data[0].districts);
         sortCities.forEach(item => {
             const sortDistricts = this.sort(item.districts);
-			if (typeof item.citycode === "string"){ // 直辖市
-				allCities[item.name] = [
-					{name: item.name}					
-				];
-			}else{
-				allCities[item.name] = sortDistricts;
-			}
+            if (typeof item.citycode === "string") { // 直辖市
+                allCities[item.name] = [{
+                    name: item.name
+                }];
+            } else {
+                allCities[item.name] = sortDistricts;
+            }
         });
 
         this.setData({
             allCities
         });
-		wx.setStorage({
-			key: 'allCities',
-			data: allCities
-		})
+        wx.setStorage({
+            key: 'allCities',
+            data: allCities
+        })
 
     },
 
@@ -193,13 +220,13 @@ Page({
      */
     cityFilter(e) {
         const value = e.detail.value;
-		if (!value){
-			this.clear();
-			return;
-		}
-		this.setData({
-			isSearch: true
-		});
+        if (!value) {
+            this.clear();
+            return;
+        }
+        this.setData({
+            isSearch: true
+        });
         const promise = new Promise(resolve => {
             wx.request({
                 url: GlobalData.hefengApi.findCity,
@@ -221,15 +248,15 @@ Page({
         });
 
         promise.then(success => {
-			const filterCities = success.map(item => {
-				return {
-					name: item.location,
-					desc: item.parent_city
-				}
-			});
-			this.setData({
-				filterCities
-			})
+            const filterCities = success.map(item => {
+                return {
+                    name: item.location,
+                    desc: item.parent_city
+                }
+            });
+            this.setData({
+                filterCities
+            })
         })
     },
 
@@ -240,7 +267,7 @@ Page({
         this.setData({
             isSearch: false
         });
-        const name = e.target.dataset.name;
+		const name = e.currentTarget.dataset.name;
         const page = getCurrentPages();
         const indexPage = page[0];
         indexPage.init(name, () => {

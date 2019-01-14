@@ -9,10 +9,10 @@ Page({
     data: {
         weatherIconUrl: GlobalData.weatherIconUrl,
         bcg: {
-			src: '/asset/image/tongyong.jpg',
-			color: '#5A9146',
-			name: '通用',
-			value: '0'
+			src: '/asset/image/qing.jpg',
+			color: '#358DBB',
+			name: '晴',
+			value: '1'
 		},
         searchText: null,
         city: '定位中',
@@ -166,10 +166,6 @@ Page({
 
         promise.then(success => {
             this.init(success);
-            wx.setStorage({
-                key: 'location',
-                data: success
-            });
         })
     },
 
